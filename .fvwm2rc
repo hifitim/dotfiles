@@ -36,7 +36,7 @@ AddToFunc RestartFunction
 + I Exec exec pkill conky
 + I Exec exec pkill fbpanel
 + I Schedule 500 Exec exec conky
-+ I Schedule 500 Exec exec fbpanel
+#+ I Schedule 500 Exec exec fbpanel
 
 ##########
 #Load modules
@@ -55,9 +55,9 @@ Style * ResizeOpaque
 ########
 #Style for my program dock in the bottom left
 ########
-*DockButtons: Geometry 400x42-1520-0
+*DockButtons: Geometry 500x60-1420-0
 *DockButtons: Rows 1
-*DockButtons: Columns 7
+*DockButtons: Columns 9
 *DockButtons: Back #586e75
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/vlc.png, Action(Mouse 1) Exec vlc)
 *DockButtons: (1x1, Icon /usr/share/icons/mate/32x32/apps/system-file-manager.png, Action(Mouse 1) Exec nautilus)
@@ -66,7 +66,7 @@ Style * ResizeOpaque
 *DockButtons: (1x1, Icon /home/tim/Pictures/icons/gpm.png, Action(Mouse 1) Exec gpm)
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/steam.png, Action(Mouse 1) Exec steam)
 *DockButtons: (1x1, Icon /usr/share/icons/gnome/32x32/actions/gtk-quit.png, Action(Mouse 1) FvwmScript FvwmScript-Quit)
-
+*DockButtons: (2x1, Swallow (UseOld,Respawn,NoClose,NoKill) `stalonetray` `Exec exec stalonetray`)
 Style DockButtons Sticky, NoTitle, WindowListSkip, StaysOnBottom, BorderWidth 0, FixedSize, !Handles, WindowListSkip, \
 CirculateSkipIcon, CirculateSkip, HandleWidth 0, NeverFocus
 
@@ -126,6 +126,7 @@ IgnoreModifiers L25
 # Specific window styles
 ###########
 Style "fbpanel" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+Style "stalonetray" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
 Style "conky" !Handles, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom
 Style "Steam" NoIcon,NoTitle,!Borders
 Style "urxvt256c" Icon Nop, MiniIcon "/home/tim/Pictures/icons/urxvt icon.png"
