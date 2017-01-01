@@ -1,0 +1,5 @@
+X11 Forwarding with Xephyr
+
+1. Xephyr -ac -screen 1280x1024 -br -reset -terminate 2> /dev/null :1 &
+2. DISPLAY=:1.0
+3. ssh -XfC tim@192.168.0.202 wmaker

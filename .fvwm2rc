@@ -1,0 +1,333 @@
+###########
+#Set Environment variables, need to clean this up
+###########
+SetEnv fvwm_icon_size 100
+SetEnv fvwm_pager_x 100
+SetEnv fvwm_pager_y 75
+SetEnv fvwm_img $[FVWM_USERDIR]/images
+SetEnv fvwm_icon $[FVWM_USERDIR]/icons
+SetEnv fvwm_scrpt $./scripts
+SetEnv fvwm_wallpapers $[FVWM_USERDIR]/wallpaper
+SetEnv fvwm_tmp /tmp
+SetEnv fvwm_home /usr/tim/.fvwm
+
+###########
+#Startup Functions
+###########
+DestroyFunc InitFunction
+AddToFunc InitFunction
++ I Schedule 500 Exec exec conky
+# A hack for a driver bug in my laptop, sets the mic boost to 10db
++ I Exec exec amixer -c 0 cset 'numid=10' 1
++ I Exec exec compton -Gf -O 200 -I 200 -D 20 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc
++ I Exec exec feh --bg-scale /home/tim/Pictures/Christmas_Bokeh_4k.jpg
++ I Exec exec nm-applet
++ I Exec exec fbpanel
++ I Exec exec mate-power-manager
++ I Exec exec pasystray
++ I Exec exec xscreensaver -nosplash &
+
+DestroyFunc RestartFunction
+AddToFunc RestartFunction
++ I All (Iconic) ReThumbnail
+# This is to make sure that the bg gets set in case I add a monitor
++ I Exec exec feh --bg-scale /home/tim/Pictures/Christmas_Bokeh_4k.jpg
+# Sometimes conky and fbpanel disappear on restart, this just kills and restarts them
++ I Exec exec pkill conky
++ I Exec exec pkill fbpanel
++ I Schedule 500 Exec exec conky
++ I Schedule 500 Exec exec fbpanel
+
+##########
+#Load modules
+#########
+Module FvwmCommandS
+Module FvwmAnimate
+Module FvwmButtons "PagerButtons"
+Module FvwmButtons "DockButtons"
+
+#########
+#Opaque move, not the grid frame
+#########
+OpaqueMoveSize unlimited
+Style * ResizeOpaque
+
+########
+#Style for my program dock in the bottom left
+########
+*DockButtons: Geometry 400x42-1520-0
+*DockButtons: Rows 1
+*DockButtons: Columns 7
+*DockButtons: Back #586e75
+*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/vlc.png, Action(Mouse 1) Exec vlc)
+*DockButtons: (1x1, Icon /usr/share/icons/mate/32x32/apps/system-file-manager.png, Action(Mouse 1) Exec nautilus)
+*DockButtons: (1x1, Icon /home/tim/bin/sublime_text_3/Icon/32x32/sublime-text.png, Action(Mouse 1) Exec sublime_text)
+*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/google-chrome-unstable.png, Action(Mouse 1) Exec google-chrome-unstable)
+*DockButtons: (1x1, Icon /home/tim/Pictures/icons/gpm.png, Action(Mouse 1) Exec gpm)
+*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/steam.png, Action(Mouse 1) Exec steam)
+*DockButtons: (1x1, Icon /usr/share/icons/gnome/32x32/actions/gtk-quit.png, Action(Mouse 1) FvwmScript FvwmScript-Quit)
+
+Style DockButtons Sticky, NoTitle, WindowListSkip, StaysOnBottom, BorderWidth 0, FixedSize, !Handles, WindowListSkip, \
+CirculateSkipIcon, CirculateSkip, HandleWidth 0, NeverFocus
+
+#######
+#Style for the pager in the bottom right
+#######
+*PagerButtons(1x1 Swallow "FvwmPager" "Module FvwmPager 0 3")
+*PagerButtons: Geometry 192x27-0-0
+*FvwmPager: WindowColors #b58900 #657b83 #cb4b16 #fdf6e3
+# this will force it not show miniwindows with the WindowSkipList property
+*FvwmPager: UseSkipList
+*FvwmPager: Back #002b36
+*FvwmPager: Fore #eee8d5
+*FvwmPager: Font "xft:Sans:pixelsize=12:minispace=True:antialias=True"
+*FvwmPager: Hilight #268bd2
+*FvwmPager: Rows 1
+*FvwmPager: Columns 4
+*FvwmPager: LabelsAbove
+*FvwmPager: SmallFont 5x8
+*FvwmPager: MiniIcons
+*FvwmPager: Balloons            All
+*FvwmPager: BalloonBack         #073642
+*FvwmPager: BalloonFore         #eee8d5
+*FvwmPager: BalloonFont         "xft:Sans:pixelsize=12:minispace=True:antialias=True"
+*FvwmPager: BalloonYOffset      +2
+*FvwmPager: BalloonBorderWidth  1
+*FvwmPager: Font none
+*FvwmPager: BalloonBorderColor  #eee8d5
+
+Style PagerButtons NoTitle, !Handles, Sticky, WindowListSkip, CirculateSkip, !Iconifiable, BorderWidth 0, FixedSize, StaysOnBottom
+
+Style "urxvt256c" Icon Nop, MiniIcon "/home/tim/Pictures/icons/urxvt icon.png"
+
+# Start putting icons out of the conky window
+Style * IconBox 10 10 -0 -0, IconFill left top, IconGrid 80 80
+Style * IconPosition
+Style * IconTitle, IconTitleColorset 6
+Style * SmartPlacement
+Style * Lenience
+Style * FPGrabFocus
+IconFont "xft:Sans:pixelsize=10:minispace=True:antialias=True"
+WindowFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
+
+# Set desktops
+DesktopSize 1x1
+DesktopName 0 Desk 0
+DesktopName 1 Desk 1
+DesktopName 2 Desk 2
+DesktopName 3 Desk 3
+
+EdgeScroll 0 0
+
+# ignore NumLock
+IgnoreModifiers L25
+
+###########
+# Specific window styles
+###########
+Style "fbpanel" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
+Style "conky" !Handles, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom
+Style "Steam" NoIcon,NoTitle,!Borders
+Style "urxvt256c" Icon Nop, MiniIcon "/home/tim/Pictures/icons/urxvt icon.png"
+
+# General window styles
+DestroyDecor MyDecor
+AddToDecor   MyDecor
++ TitleStyle -- flat
++ ButtonStyle All Active (-- flat) Inactive (-- flat)
++ TitleStyle ActiveUp  (Solid #6c6c9c -- flat)
++ TitleStyle ActiveDown (Solid grey -- flat) Inactive (Solid #5b605e -- flat)
+
+Style * UseDecor MyDecor
+Style * ForeColor #9C9076, HilightFore white
+Style * BorderWidth 1, HandleWidth 2
+Style * NoButton 6
+
+# Recall that mouse formats look like this:
+#
+# +------------+
+# | ||  ||  || |
+# |            |
+# +------------+
+#   1   2   3
+
+# Binding Functions
+#
+# "I" stands for Immediate
+# "M" stands for Motion
+# "C" stands for Click
+# "H" stands for Hold
+# "D" stands for Double Click
+
+# -------------------------------------------------------------
+# Contexts:
+#     R = Root Window                 rrrrrrrrrrrrrrrrrrrrrr
+#     W = Application Window          rIrrrrFSSSSSSSSSFrrrrr
+#     F = Frame Corners               rrrrrrS13TTTT642Srrrrr
+#     S = Frame Sides                 rIrrrrSwwwwwwwwwSrrrrr
+#     T = Title Bar                   rrrrrrSwwwwwwwwwSrrrrr
+#     I = Icon                        rIrrrrFSSSSSSSSSFrrrrr
+#                                     rrrrrrrrrrrrrrrrrrrrrr
+# Numbers are buttons: 1 3 5 7 9   0 8 6 4 2
+#
+# Modifiers: (A)ny, (C)ontrol, (S)hift, (M)eta, (N)othing
+# -------------------------------------------------------------
+
+# Mouse bindings
+Mouse 1 R A Menu Mainmenu Nop
+Mouse 2 R A WindowList
+Mouse 3 F A Menu MenuFvwmWindowOps Nop
+Mouse 3 S A Menu MenuFvwmWindowOps Nop
+Mouse 1 W M Pick Move
+Mouse 3 W M Resize
+Mouse 1 W 4 Raise
+Mouse 1 6 A Close
+Mouse 1 4 A Close
+Mouse 1 2 A Maximize
+Mouse 1 1 A Menu Window-Ops Nop
+Mouse 1 1 A Thumbnail
+Mouse 1 I A Thumbnail
+Mouse 3 I A Pick move
+Mouse 3 T A Menu MenuFvwmWindowOps
+Mouse 5 T A WindowShade True
+Mouse 4 T A WindowShade False
+
+# Key bindings
+Key Escape A S Popup Mainmenu Root c c
+Key Tab A M WindowList Root c c NoNumInDeskTitle, CurrentAtEnd, IconifiedAtEnd
+Key Escape A CS WindowList Root c c NoNumInDeskTitle, IconifiedAtEnd
+Key Escape A C Popup MenuFvwmWindowOps Root c c
+Key Q A C Close
+# Full maximize
+Key N A M Maximize 100 100
+# Vertical maximize
+Key B A M Maximize 0 100
+# Thumbnail current window
+Key H A M Thumbnail
+# Shade current window
+Key M A M WindowShade Toggle
+
+# Move to another desk
+Key 1 W 4S MoveToDesk 0 0
+Key 2 W 4S MoveToDesk 0 1
+Key 3 W 4S MoveToDesk 0 2
+Key 4 W 4S MoveToDesk 0 3
+
+# Resize and move the window
+Key Right A SM PointerWindow Move w+1 w+0 Warp
+Key Left A SM PointerWindow Move w-1 w+0 Warp
+Key Up A SM PointerWindow Move w+0 w-1 Warp
+Key Down A SM PointerWindow Move w+0 w+1 Warp
+Key Right A CM PointerWindow Resize br w+1 w+0
+Key Left A CM PointerWindow Resize br  w-1 w+0
+Key Up A CM PointerWindow Resize br w+0 w-1
+Key Down A CM PointerWindow Resize br w+0 w+2
+
+# Move to another desk
+Key 1 A 4 GotoDesk 0 0
+Key 2 A 4 GotoDesk 0 1
+Key 3 A 4 GotoDesk 0 2
+Key 4 A 4 GotoDesk 0 3
+Key Up A 4 GotoDesk 1 0 3
+Key Down A 4 GotoDesk -1 0 3
+
+# General key bindings
+Key F10 A S Exec import -window root "/home/tim/screenshots/screenshot-`date +%F[%R]`.png"
+Key Return A 4 Exec urxvt256c -geometry 130x40
+Key W A 4 Exec exec dmenu_run
+Key XF86AudioLowerVolume A N Exec exec amixer sset -q Master,0 2%-
+Key XF86AudioRaiseVolume A N Exec exec amixer sset -q Master,0 2%+
+Key XF86AudioMute A N Exec exec amixer sset -q Master,0 toggle
+Key L A 4 Exec exec xlock
+
+# Colorsets and menu styles
+Colorset 00 fg white, bg #69768B
+Colorset 01 fg #FFFFC4, bg #697871
+Colorset 02 fg #C0C0C0, bg #8D97AF
+Colorset 03 fg white, bg grey
+Colorset 04 fg white, bg #B7BBED
+Colorset 05 fg black, bg grey
+Colorset 06 fg #fdf6e3, bg #002b36
+
+# Contemplating removing the left-click menu on the root
+# dmenu and the program buttons make it irrelevant
+MenuStyle * Hilight3DThin, Animation, PopupOffset 0 100
+MenuStyle * Font "xft:Liberation Sans:style=Regular:pixelsize=16"
+MenuStyle * TitleFont "xft:Liberation Sans:style=Bold:pixelsize=16"
+MenuStyle * MenuColorset 05, ActiveColorset 01, HilightBack
+MenuStyle * BorderWidth 1, TitleUnderlines1, SeparatorsLong
+MenuStyle * TrianglesSolid, ItemFormat "%.2|%.5i%.5l%.5i%2.3>%2|"
+
+DestroyMenu "Mainmenu"
+AddToMenu "MainMenu" "Main Menu" Title
++ "Sublime Text%/home/tim/Pictures/icons/sublime-text.png%" Exec exec sublime_text
++ "Audio Control%/home/tim/Pictures/icons/pavucontrol icon.png%" Exec exec pavucontrol
++ "VS Code%/home/tim/Pictures/icons/vscode.png%" Exec exec code
++ "Nautilus%/home/tim/Pictures/icons/mc icon.png%" Exec exec nautilus
++ "Dwarf Fortress%/home/tim/Pictures/icons/df icon.png%" Exec exec urxvt256c -geometry 130x40 -e bash -c `export LD_PRELOAD=/usr/lib/libz.so.1 && /home/tim/bin/df_linux/df`
++ "Chrome%/home/tim/Pictures/icons/chrome icon.png%" Exec exec google-chrome-unstable
++ "0 AD%/home/tim/Pictures/icons/0ad icon.png%" Exec exec 0ad
++ "XChat%/home/tim/Pictures/icons/xchat icon.png%" Exec exec xchat
++ "Steam%/home/tim/Pictures/icons/steam icon.png%" Exec exec steam
++ "Google Music%/home/tim/Pictures/icons/google music icon.png%" Exec exec google-chrome-unstable --app=http://www.google.com/music
++ "VLC%/home/tim/Pictures/icons/vlc icon.png%" Exec exec vlc
++ "Evolution%/home/tim/Pictures/icons/evolution icon.png%" Exec exec evolution
++ "" Nop
++ "Restart Fvwm%/home/tim/Pictures/icons/restart icon.png%" Restart
++ "Identify%/home/tim/Pictures/icons/magnify.png%"  Module FvwmIdent
++ "" Nop
++ "Quit%/home/tim/Pictures/icons/quit icon.png%" FvwmScript FvwmScript-Quit
+
+## window operations menu
+DestroyMenu MenuFvwmWindowOps
+AddToMenu MenuFvwmWindowOps
++   "Move To Desk"      Popup MenuDeskList
++   ""  Nop
++   "Shade/Unshade"     Pick WindowShade Toggle
++   "Iconify"           Pick Thumbnail
++   "Maximize"          Pick Maximize
++   ""  Nop
++   "Raise/Lower"       Pick RaiseLower
++   "Stick/Unstick"     Pick Stick
++   ""  Nop
++   "Identify"          Pick Module FvwmIdent
++   ""  Nop
++   "Close"             Pick Close
++   "Destroy"           Pick Destroy
+
+## move to desk menu
+DestroyMenu MenuDeskList
+AddToMenu MenuDeskList
++ " Desk 0" Pick MoveToDesk 0 0
++ " Desk 1" Pick MoveToDesk 0 1
++ " Desk 2" Pick MoveToDesk 0 2
++ " Desk 3" Pick MoveToDesk 0 3
+
+# Thumbnail image for iconified windows
+DestroyFunc Thumbnail
+AddToFunc Thumbnail
++ I Raise
++ I SetEnv Icon-$[w.id] $[w.iconfile]
++ I ThisWindow (!Shaded Iconifiable !Iconic) PipeRead \
+    "xwd -silent -id $[w.id] | convert -scale $$((100)) -frame 1x1 \
+    -mattecolor black -quality 0 xwd:- png:$[fvwm_tmp]/icon.tmp.$[w.id].png \
+    && echo Nop"
++ I TestRc (Match) Test (f $[fvwm_icon]/$[w.iconfile], f $[fvwm_tmp]/icon.tmp.$[w.id].png) \
+    PipeRead "composite -geometry +2+4 \
+    $[fvwm_icon]/$[w.iconfile] $[fvwm_tmp]/icon.tmp.$[w.id].png \
+    $[fvwm_tmp]/icon.tmp.$[w.id].png && \
+    echo WindowStyle IconOverride, Icon $[fvwm_tmp]/icon.tmp.$[w.id].png || echo Nop"
++ I TestRc (NoMatch) WindowStyle IconOverride, Icon $[fvwm_tmp]/icon.tmp.$[w.id].png
++ I Iconify
++ I All (CurrentPage, Iconic) PlaceAgain Icon
+
+# Something is either wrong with this function, or the restart function above
+# because the thumbnails are wrong on a restart
+DestroyFunc ReThumbnail
+AddToFunc   ReThumbnail
++ I Iconify
++ I Thumbnail
+
+#DestroyFunc Screenshot
+#AddtoFunc Screenshot
+#+ I Exec sleep 5; import -window root -slient "/home/tim/screenshots/screenshot-`date+%F[%R]`.png"
