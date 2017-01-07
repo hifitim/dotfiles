@@ -215,14 +215,14 @@ Key 3 W 4S MoveToDesk 0 2
 Key 4 W 4S MoveToDesk 0 3
 
 # Resize and move the window
-Key Right A SM PointerWindow Move w+1 w+0 Warp
-Key Left A SM PointerWindow Move w-1 w+0 Warp
-Key Up A SM PointerWindow Move w+0 w-1 Warp
-Key Down A SM PointerWindow Move w+0 w+1 Warp
-Key Right A CM PointerWindow Resize br w+1 w+0
-Key Left A CM PointerWindow Resize br  w-1 w+0
-Key Up A CM PointerWindow Resize br w+0 w-1
-Key Down A CM PointerWindow Resize br w+0 w+1
+Key Right A SM PointerWindow Move w+2 w+0 Warp
+Key Left A SM PointerWindow Move w-2 w+0 Warp
+Key Up A SM PointerWindow Move w+0 w-2 Warp
+Key Down A SM PointerWindow Move w+0 w+2 Warp
+Key Right A CM PointerWindow Resize br w+2 w+0
+Key Left A CM PointerWindow Resize br  w-2 w+0
+Key Up A CM PointerWindow Resize br w+0 w-2
+Key Down A CM PointerWindow Resize br w+0 w+2
 Key Right W 4 HalfRight
 Key Left W 4 HalfLeft
 Key T W 4 MoveToTopLeft
@@ -382,4 +382,4 @@ DestroyFunc MoveAllTheWayRight
 AddToFunc MoveAllTheWayRight
 + I ThisWindow Piperead "echo Move \
 +$(( $[vp.width]-$[w.width] ))p \
-+$(( $[w.xfgff] ))p Warp"
++$(( $[w.y] ))p Warp"
