@@ -22,7 +22,6 @@ AddToFunc InitFunction
 + I Exec exec compton -Gf -O 200 -I 200 -D 20 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc
 + I Exec exec feh --bg-scale /home/tim/Pictures/Christmas_Bokeh_4k.jpg
 + I Exec exec nm-applet
-+ I Exec exec fbpanel
 + I Exec exec mate-power-manager
 + I Exec exec pasystray
 + I Exec exec xscreensaver -nosplash &
@@ -30,13 +29,11 @@ AddToFunc InitFunction
 DestroyFunc RestartFunction
 AddToFunc RestartFunction
 + I All (Iconic) ReThumbnail
-# This is to make sure that the bg gets set in case I add a monitor
+# This is to make sure that the bg gets set in case a monitor is added
 + I Exec exec feh --bg-scale /home/tim/Pictures/Christmas_Bokeh_4k.jpg
 # Sometimes conky and fbpanel disappear on restart, this just kills and restarts them
 + I Exec exec pkill conky
-+ I Exec exec pkill fbpanel
 + I Schedule 500 Exec exec conky
-#+ I Schedule 500 Exec exec fbpanel
 
 ##########
 #Load modules
@@ -55,16 +52,18 @@ Style * ResizeOpaque
 ########
 #Style for my program dock in the bottom left
 ########
-*DockButtons: Geometry 500x60-1420-0
+*DockButtons: Geometry 550x55-1370-0
 *DockButtons: Rows 1
-*DockButtons: Columns 9
+*DockButtons: Columns 10
 *DockButtons: Back #586e75
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/vlc.png, Action(Mouse 1) Exec vlc)
+*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/gvim.png, Action(Mouse 1) Exec gvim)
 *DockButtons: (1x1, Icon /usr/share/icons/mate/32x32/apps/system-file-manager.png, Action(Mouse 1) Exec nautilus)
 *DockButtons: (1x1, Icon /home/tim/bin/sublime_text_3/Icon/32x32/sublime-text.png, Action(Mouse 1) Exec sublime_text)
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/google-chrome-unstable.png, Action(Mouse 1) Exec google-chrome-unstable)
 *DockButtons: (1x1, Icon /home/tim/Pictures/icons/gpm.png, Action(Mouse 1) Exec gpm)
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/steam.png, Action(Mouse 1) Exec steam)
+*DockButtons: (1x1, Icon /home/tim/Pictures/icons/openmw.png, Action(Mouse 1) Exec openmw)
 *DockButtons: (1x1, Icon /usr/share/icons/gnome/32x32/actions/gtk-quit.png, Action(Mouse 1) FvwmScript FvwmScript-Quit)
 *DockButtons: (2x1, Swallow (UseOld,Respawn,NoClose,NoKill) `stalonetray` `Exec exec stalonetray`)
 Style DockButtons Sticky, NoTitle, WindowListSkip, StaysOnBottom, BorderWidth 0, FixedSize, !Handles, WindowListSkip, \
@@ -75,10 +74,10 @@ CirculateSkipIcon, CirculateSkip, HandleWidth 0, NeverFocus
 #######
 *PagerButtons(1x1 Swallow "FvwmPager" "Module FvwmPager 0 3")
 *PagerButtons: Geometry 192x27-0-0
-*FvwmPager: WindowColors #b58900 #657b83 #cb4b16 #fdf6e3
+*FvwmPager: WindowColors #b58900 #002b36 #cb4b16 #fdf6e3
 # this will force it not show miniwindows with the WindowSkipList property
 *FvwmPager: UseSkipList
-*FvwmPager: Back #002b36
+*FvwmPager: Back #586e75
 *FvwmPager: Fore #eee8d5
 *FvwmPager: Font "xft:Sans:pixelsize=12:minispace=True:antialias=True"
 *FvwmPager: Hilight #268bd2
@@ -107,6 +106,7 @@ Style * IconTitle, IconTitleColorset 6
 Style * SmartPlacement
 Style * Lenience
 Style * FPGrabFocus
+Style * NoWarp
 IconFont "xft:Sans:pixelsize=10:minispace=True:antialias=True"
 WindowFont "xft:Sans:Bold:pixelsize=12:minispace=True:antialias=True"
 
@@ -222,7 +222,16 @@ Key Down A SM PointerWindow Move w+0 w+1 Warp
 Key Right A CM PointerWindow Resize br w+1 w+0
 Key Left A CM PointerWindow Resize br  w-1 w+0
 Key Up A CM PointerWindow Resize br w+0 w-1
-Key Down A CM PointerWindow Resize br w+0 w+2
+Key Down A CM PointerWindow Resize br w+0 w+1
+Key Right W 4 HalfRight
+Key Left W 4 HalfLeft
+Key T W 4 MoveToTopLeft
+Key Y W 4 MoveToTopRight
+Key B W 4 MoveToBottomLeft
+Key N W 4 MoveToBottomRight
+Key G W 4 CenterWindow
+Key F W 4 MoveAllTheWayLeft
+Key H W 4 MoveAllTheWayRight
 
 # Move to another desk
 Key 1 A 4 GotoDesk 0 0
@@ -234,7 +243,7 @@ Key Down A 4 GotoDesk -1 0 3
 
 # General key bindings
 Key F10 A S Exec import -window root "/home/tim/screenshots/screenshot-`date +%F[%R]`.png"
-Key Return A 4 Exec urxvt256c -geometry 130x40
+Key Return A 4 Exec urxvt256c -geometry 110x35
 Key W A 4 Exec exec dmenu_run
 Key XF86AudioLowerVolume A N Exec exec amixer sset -q Master,0 2%-
 Key XF86AudioRaiseVolume A N Exec exec amixer sset -q Master,0 2%+
@@ -265,7 +274,7 @@ AddToMenu "MainMenu" "Main Menu" Title
 + "Audio Control%/home/tim/Pictures/icons/pavucontrol icon.png%" Exec exec pavucontrol
 + "VS Code%/home/tim/Pictures/icons/vscode.png%" Exec exec code
 + "Nautilus%/home/tim/Pictures/icons/mc icon.png%" Exec exec nautilus
-+ "Dwarf Fortress%/home/tim/Pictures/icons/df icon.png%" Exec exec urxvt256c -geometry 130x40 -e bash -c `export LD_PRELOAD=/usr/lib/libz.so.1 && /home/tim/bin/df_linux/df`
++ "Dwarf Fortress%/home/tim/Pictures/icons/df icon.png%" Exec exec urxvt256c -geometry 110x35 -e bash -c `export LD_PRELOAD=/usr/lib/libz.so.1 && /home/tim/bin/df_linux/df`
 + "Chrome%/home/tim/Pictures/icons/chrome icon.png%" Exec exec google-chrome-unstable
 + "0 AD%/home/tim/Pictures/icons/0ad icon.png%" Exec exec 0ad
 + "XChat%/home/tim/Pictures/icons/xchat icon.png%" Exec exec xchat
@@ -329,6 +338,48 @@ AddToFunc   ReThumbnail
 + I Iconify
 + I Thumbnail
 
-#DestroyFunc Screenshot
-#AddtoFunc Screenshot
-#+ I Exec sleep 5; import -window root -slient "/home/tim/screenshots/screenshot-`date+%F[%R]`.png"
+DestroyFunc HalfRight
+AddtoFunc HalfRight
++ I ThisWindow ResizeMove 50 100 50 0 Warp
+
+DestroyFunc HalfLeft
+AddtoFunc HalfLeft
++ I ThisWindow ResizeMove 50 100 0 0 Warp
+
+DestroyFunc CenterWindow
+AddToFunc CenterWindow
++ I ThisWindow Piperead "echo Move \
++$(( $[vp.width]/2-$[w.width]/2 ))p \
++$(( $[vp.height]/2-$[w.height]/2 ))p Warp"
+
+DestroyFunc MoveToTopLeft
+AddToFunc MoveToTopLeft
++ I ThisWindow Move 0 0 Warp
+
+DestroyFunc MoveToTopRight
+AddToFunc MoveToTopRight
++ I ThisWindow Piperead "echo Move \
++$(( $[vp.width]-$[w.width] ))p \
++$(( 0 ))p Warp"
+
+DestroyFunc MoveToBottomRight
+AddToFunc MoveToBottomRight
++ I ThisWindow Piperead "echo Move \
++$(( $[vp.width]-$[w.width] ))p \
++$(( $[vp.height]-$[w.height] ))p Warp"
+
+DestroyFunc MoveToBottomLeft
+AddToFunc MoveToBottomLeft
++ I ThisWindow Piperead "echo Move \
++$(( 0 ))p \
++$(( $[vp.height]-$[w.height] ))p Warp"
+
+DestroyFunc MoveAllTheWayLeft
+AddToFunc MoveAllTheWayLeft
++ I ThisWindow Move 0p $[w.y]p Warp
+
+DestroyFunc MoveAllTheWayRight
+AddToFunc MoveAllTheWayRight
++ I ThisWindow Piperead "echo Move \
++$(( $[vp.width]-$[w.width] ))p \
++$(( $[w.xfgff] ))p Warp"
