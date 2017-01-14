@@ -52,20 +52,16 @@ Style * ResizeOpaque
 ########
 #Style for my program dock in the bottom left
 ########
-*DockButtons: Geometry 550x55-1370-0
+*DockButtons: Geometry 375x55-1545-0
 *DockButtons: Rows 1
-*DockButtons: Columns 10
+*DockButtons: Columns 7
 *DockButtons: Back #586e75
-*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/vlc.png, Action(Mouse 1) Exec vlc)
-*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/gvim.png, Action(Mouse 1) Exec gvim)
-*DockButtons: (1x1, Icon /usr/share/icons/mate/32x32/apps/system-file-manager.png, Action(Mouse 1) Exec nautilus)
-*DockButtons: (1x1, Icon /home/tim/bin/sublime_text_3/Icon/32x32/sublime-text.png, Action(Mouse 1) Exec sublime_text)
+*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/gvim.png, Action(Mouse 1) Exec urxvt256c -geometry 110x35 -e vim)
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/google-chrome-unstable.png, Action(Mouse 1) Exec google-chrome-unstable)
 *DockButtons: (1x1, Icon /home/tim/Pictures/icons/gpm.png, Action(Mouse 1) Exec gpm)
-*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/steam.png, Action(Mouse 1) Exec steam)
-*DockButtons: (1x1, Icon /home/tim/Pictures/icons/openmw.png, Action(Mouse 1) Exec openmw)
+#*DockButtons: (1x1, Icon /home/tim/Pictures/icons/openmw.png, Action(Mouse 1) Exec openmw)
 *DockButtons: (1x1, Icon /usr/share/icons/gnome/32x32/actions/gtk-quit.png, Action(Mouse 1) FvwmScript FvwmScript-Quit)
-*DockButtons: (2x1, Swallow (UseOld,Respawn,NoClose,NoKill) `stalonetray` `Exec exec stalonetray`)
+*DockButtons: (3x1, Swallow (UseOld,Respawn,NoClose,NoKill) `stalonetray` `Exec exec stalonetray`)
 Style DockButtons Sticky, NoTitle, WindowListSkip, StaysOnBottom, BorderWidth 0, FixedSize, !Handles, WindowListSkip, \
 CirculateSkipIcon, CirculateSkip, HandleWidth 0, NeverFocus
 
@@ -198,6 +194,7 @@ Key Escape A S Popup Mainmenu Root c c
 Key Tab A M WindowList Root c c NoNumInDeskTitle, CurrentAtEnd, IconifiedAtEnd
 Key Escape A CS WindowList Root c c NoNumInDeskTitle, IconifiedAtEnd
 Key Escape A C Popup MenuFvwmWindowOps Root c c
+Kye Tab A M WindowList Root c c NoDeskSort
 Key Q A C Close
 # Full maximize
 Key N A M Maximize 100 100
@@ -225,13 +222,14 @@ Key Up A CM PointerWindow Resize br w+0 w-2
 Key Down A CM PointerWindow Resize br w+0 w+2
 Key Right W 4 HalfRight
 Key Left W 4 HalfLeft
-Key T W 4 MoveToTopLeft
-Key Y W 4 MoveToTopRight
-Key B W 4 MoveToBottomLeft
-Key N W 4 MoveToBottomRight
-Key G W 4 CenterWindow
-Key F W 4 MoveAllTheWayLeft
-Key H W 4 MoveAllTheWayRight
+Key T WTSF 4 MoveToTopLeft
+Key Y WTSF 4 MoveToTopRight
+Key B WTSF 4 MoveToBottomLeft
+Key N WTSF 4 MoveToBottomRight
+Key G WTSF 4 CenterWindow
+Key F WTSF 4 MoveAllTheWayLeft
+Key H WTSF 4 MoveAllTheWayRight
+Key J WTSF 4 GoodSizeAndCenter
 
 # Move to another desk
 Key 1 A 4 GotoDesk 0 0
@@ -271,6 +269,7 @@ MenuStyle * TrianglesSolid, ItemFormat "%.2|%.5i%.5l%.5i%2.3>%2|"
 DestroyMenu "Mainmenu"
 AddToMenu "MainMenu" "Main Menu" Title
 + "Sublime Text%/home/tim/Pictures/icons/sublime-text.png%" Exec exec sublime_text
++ "VIM%/home/tim/Pictures/icons/vim icon.png%" Exec exec urxvt256c -geometry 110x35 -e vim
 + "Audio Control%/home/tim/Pictures/icons/pavucontrol icon.png%" Exec exec pavucontrol
 + "VS Code%/home/tim/Pictures/icons/vscode.png%" Exec exec code
 + "Nautilus%/home/tim/Pictures/icons/mc icon.png%" Exec exec nautilus
@@ -383,3 +382,8 @@ AddToFunc MoveAllTheWayRight
 + I ThisWindow Piperead "echo Move \
 +$(( $[vp.width]-$[w.width] ))p \
 +$(( $[w.y] ))p Warp"
+
+DestroyFunc GoodSizeAndCenter
+AddToFunc GoodSizeAndCenter
++ I ThisWindow Resize 70 80 Warp
++ I CenterWindow Warp
