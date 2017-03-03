@@ -310,6 +310,8 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
     awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey            }, "w", function ()
+    awful.util.spawn("dmenu_run") end),
     awful.key({ }, "XF86AudioRaiseVolume", function ()
     awful.util.spawn("amixer sset -q Master,0 2%+") end),
     awful.key({ }, "XF86AudioLowerVolume", function ()
@@ -326,7 +328,7 @@ globalkeys = awful.util.table.join(
             awful.client.focus.byidx(-1)
             if client.focus then client.focus:raise() end
         end),
-    awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
+    --awful.key({ modkey,           }, "w", function () mymainmenu:show() end),
 
     -- Layout manipulation
     awful.key({ modkey, "Shift"   }, "j", function () awful.client.swap.byidx(  1)    end),
@@ -457,21 +459,22 @@ awful.rules.rules = {
                      raise = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "spotify" },
-      properties = { tag = tags[1][3] },
-      callback = function(c) naughty.notify({text = "It works!"}) end },
-    { rule = { class = "Vlc" },
+    { rule = { class = "Steam" },
+      properties = { tag = tags[1][3] } },
+    { rule = { class = "vlc" },
       properties = { tag = tags[1][3] } },
     { rule = { class = "Emacs" },
       properties = { tag = tags[1][6] } },
     { rule = { class = "Gimp" },
       properties = { tag = tags[1][3] } },
-    { rule = { class = "google-chrome-unstable" },
+    { rule = { class = "Google-chrome-unstable" },
       properties = { tag = tags[1][4] } },
     { rule = { class = "chromium" },
       properties = { tag = tags[1][4] } },
     { rule = { class = "google-chrome" },
       properties = { tag = tags[1][4] } },
+    { rule = { class = "discord" },
+      properties = { tag = tags[1][5] } },
     { rule = { class = "Xchat" },
       properties = { tag = tags[1][5] } },
     { rule = { class = "libreoffice" },
@@ -480,15 +483,14 @@ awful.rules.rules = {
       properties = { tag = tags[1][6] } },
     { rule = { instance = "crx_nckgahadagoaajjgafhacjanaoiihapd" },
       properties = { tag = tags[1][5] } },
-    { rule = { class = "Evolution" },
+    { rule = { class = "Geary" },
       properties = { tag = tags[1][1] } },
-    { rule = { class = "jetbrains-clion" },
-      properties = { tag = tags[1][6] } },
     { rule = { class = "Sublime_text" },
       properties = { tag = tags[1][6] } },
     { rule = { class = "Atom" },
       properties = { tag = tags[1][6] } },
-
+    { rule = { class = "Gvim" },
+      properties = { tag = tags[1][6] } },
 
     --{ rule = { class = "spotify" },
     --  properties = { tag = tags[1][2] } },

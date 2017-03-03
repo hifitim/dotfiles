@@ -20,7 +20,7 @@ AddToFunc InitFunction
 # A hack for a driver bug in my laptop, sets the mic boost to 10db
 + I Exec exec amixer -c 0 cset 'numid=10' 1
 + I Exec exec compton -Gf -O 200 -I 200 -D 20 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc
-+ I Exec exec feh --bg-scale /home/tim/Pictures/Christmas_Bokeh_4k.jpg
++ I Exec exec feh --bg-scale /home/tim/Pictures/blue-bokeh.jpg
 + I Exec exec nm-applet
 + I Exec exec mate-power-manager
 + I Exec exec pasystray
@@ -52,11 +52,12 @@ Style * ResizeOpaque
 ########
 #Style for my program dock in the bottom left
 ########
-*DockButtons: Geometry 375x55-1545-0
+*DockButtons: Geometry 400x55-1520-0
 *DockButtons: Rows 1
-*DockButtons: Columns 7
+*DockButtons: Columns 8
 *DockButtons: Back #586e75
-*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/gvim.png, Action(Mouse 1) Exec urxvt256c -geometry 110x35 -e vim)
+*DockButtons: (1x1, Icon /home/tim/bin/sublime_text_3/Icon/32x32/sublime-text.png, Action(Mouse 1) Exec sublime_text)
+*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/steam.png, Action(Mouse 1) Exec steam)
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/google-chrome-unstable.png, Action(Mouse 1) Exec google-chrome-unstable)
 *DockButtons: (1x1, Icon /home/tim/Pictures/icons/gpm.png, Action(Mouse 1) Exec gpm)
 #*DockButtons: (1x1, Icon /home/tim/Pictures/icons/openmw.png, Action(Mouse 1) Exec openmw)
@@ -125,6 +126,8 @@ Style "fbpanel" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, CirculateSk
 Style "stalonetray" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
 Style "conky" !Handles, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom
 Style "Steam" NoIcon,NoTitle,!Borders
+Style "Google-chrome-unstable" NoIcon,NoTitle,!Borders
+Style "nautilus" NoIcon,NoTitle,!Borders
 Style "urxvt256c" Icon Nop, MiniIcon "/home/tim/Pictures/icons/urxvt icon.png"
 
 # General window styles
@@ -171,7 +174,8 @@ Style * NoButton 6
 # -------------------------------------------------------------
 
 # Mouse bindings
-Mouse 1 R A Menu Mainmenu Nop
+#Mouse 1 R A Menu Mainmenu Nop
+Mouse 1 R A Nop
 Mouse 2 R A WindowList
 Mouse 3 F A Menu MenuFvwmWindowOps Nop
 Mouse 3 S A Menu MenuFvwmWindowOps Nop

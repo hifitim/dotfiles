@@ -161,13 +161,14 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        tray_output eDP-1
+        #tray_output eDP-1
         status_command i3status --config ~/.i3status.conf
 }
 
 exec --no-startup-id mate-power-manager
 exec --no-startup-id nm-applet
 exec --no-startup-id pasystray
+exec --no-startup-id compton -Gf -O 200 -I 200 -D 20 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc
 #exec --no-startup-id feh --bg-scale /usr/share/backgrounds/f24/default/wide/f24.png
 exec --no-startup-id xsetroot -solid "#505075"
 exec --no-startup-id amixer -c 0 cset 'numid=10' 1
@@ -192,7 +193,7 @@ bindsym XF86AudioPrev exec playerctl previous
 
 bindsym $mod+Shift+e exec i3-msg exit
 
-bindsym $mod+Ctrl+Right resize grow width 1 px or 1 ppt
-bindsym $mod+Ctrl+Up resize grow height 1 px or 1 ppt
-bindsym $mod+Ctrl+Down resize shrink height 1 px or 1 ppt
-bindsym $mod+Ctrl+Left resize shrink width 1 px or 1 ppt
+bindsym $mod+Ctrl+Right resize shrink width 1 px or 1 ppt
+bindsym $mod+Ctrl+Up resize shrink height 1 px or 1 ppt
+bindsym $mod+Ctrl+Down resize grow height 1 px or 1 ppt
+bindsym $mod+Ctrl+Left resize grow width 1 px or 1 ppt

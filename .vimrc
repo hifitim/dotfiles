@@ -15,6 +15,7 @@ set guioptions-=r
 set guioptions-=L
 set foldmethod=syntax
 set hidden
+set guifont=Hermit\ Medium\ 11
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
