@@ -20,7 +20,7 @@ AddToFunc InitFunction
 # A hack for a driver bug in my laptop, sets the mic boost to 10db
 + I Exec exec amixer -c 0 cset 'numid=10' 1
 + I Exec exec compton -Gf -O 200 -I 200 -D 20 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc
-+ I Exec exec feh --bg-scale /home/tim/Pictures/blue-bokeh.jpg
++ I Exec exec feh --bg-scale /home/tim/Pictures/min2.jpg
 + I Exec exec nm-applet
 + I Exec exec mate-power-manager
 + I Exec exec pasystray
@@ -30,7 +30,7 @@ DestroyFunc RestartFunction
 AddToFunc RestartFunction
 + I All (Iconic) ReThumbnail
 # This is to make sure that the bg gets set in case a monitor is added
-+ I Exec exec feh --bg-scale /home/tim/Pictures/Christmas_Bokeh_4k.jpg
++ I Exec exec feh --bg-scale /home/tim/Pictures/blue-boken.jpg
 # Sometimes conky and fbpanel disappear on restart, this just kills and restarts them
 + I Exec exec pkill conky
 + I Schedule 500 Exec exec conky
@@ -52,17 +52,18 @@ Style * ResizeOpaque
 ########
 #Style for my program dock in the bottom left
 ########
-*DockButtons: Geometry 400x55-1520-0
-*DockButtons: Rows 1
-*DockButtons: Columns 8
+*DockButtons: Geometry 55x400-0-400
+#*DockButtons: Geometry 400x55-1520-0
+*DockButtons: Rows 8
+*DockButtons: Columns 1
 *DockButtons: Back #586e75
-*DockButtons: (1x1, Icon /home/tim/bin/sublime_text_3/Icon/32x32/sublime-text.png, Action(Mouse 1) Exec sublime_text)
+*DockButtons: (1x1, Icon /home/tim/bin/sublime_text_3/Icon/32x32/sublime-text.png, Action(Mouse 1) Exec subl)
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/steam.png, Action(Mouse 1) Exec steam)
 *DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/google-chrome-unstable.png, Action(Mouse 1) Exec google-chrome-unstable)
-*DockButtons: (1x1, Icon /home/tim/Pictures/icons/gpm.png, Action(Mouse 1) Exec gpm)
+*DockButtons: (1x1, Icon /usr/share/icons/hicolor/32x32/apps/spotify-client.png, Action(Mouse 1) Exec spotify)
 #*DockButtons: (1x1, Icon /home/tim/Pictures/icons/openmw.png, Action(Mouse 1) Exec openmw)
 *DockButtons: (1x1, Icon /usr/share/icons/gnome/32x32/actions/gtk-quit.png, Action(Mouse 1) FvwmScript FvwmScript-Quit)
-*DockButtons: (3x1, Swallow (UseOld,Respawn,NoClose,NoKill) `stalonetray` `Exec exec stalonetray`)
+*DockButtons: (1x3, Swallow (UseOld,Respawn,NoClose,NoKill) `stalonetray` `Exec exec stalonetray`)
 Style DockButtons Sticky, NoTitle, WindowListSkip, StaysOnBottom, BorderWidth 0, FixedSize, !Handles, WindowListSkip, \
 CirculateSkipIcon, CirculateSkip, HandleWidth 0, NeverFocus
 
@@ -95,6 +96,7 @@ CirculateSkipIcon, CirculateSkip, HandleWidth 0, NeverFocus
 Style PagerButtons NoTitle, !Handles, Sticky, WindowListSkip, CirculateSkip, !Iconifiable, BorderWidth 0, FixedSize, StaysOnBottom
 
 Style "urxvt256c" Icon Nop, MiniIcon "/home/tim/Pictures/icons/urxvt icon.png"
+Style "geary" Icon Nop, MiniIcon "/usr/share/icons/hicolor/16x16/apps/geary.png"
 
 # Start putting icons out of the conky window
 Style * IconBox 10 10 -0 -0, IconFill left top, IconGrid 80 80
@@ -114,6 +116,7 @@ DesktopName 1 Desk 1
 DesktopName 2 Desk 2
 DesktopName 3 Desk 3
 
+# don't scroll workspaces at the edge.
 EdgeScroll 0 0
 
 # ignore NumLock
@@ -174,8 +177,8 @@ Style * NoButton 6
 # -------------------------------------------------------------
 
 # Mouse bindings
-#Mouse 1 R A Menu Mainmenu Nop
-Mouse 1 R A Nop
+Mouse 1 R A Menu Mainmenu
+#Mouse 1 R A Nop
 Mouse 2 R A WindowList
 Mouse 3 F A Menu MenuFvwmWindowOps Nop
 Mouse 3 S A Menu MenuFvwmWindowOps Nop
@@ -272,19 +275,20 @@ MenuStyle * TrianglesSolid, ItemFormat "%.2|%.5i%.5l%.5i%2.3>%2|"
 
 DestroyMenu "Mainmenu"
 AddToMenu "MainMenu" "Main Menu" Title
-+ "Sublime Text%/home/tim/Pictures/icons/sublime-text.png%" Exec exec sublime_text
-+ "VIM%/home/tim/Pictures/icons/vim icon.png%" Exec exec urxvt256c -geometry 110x35 -e vim
++ "Sublime Text%/home/tim/Pictures/icons/sublime-text.png%" Exec exec subl
++ "Emacs%/usr/share/icons/hicolor/16x16/apps/emacs.png%" Exec exec emacs
 + "Audio Control%/home/tim/Pictures/icons/pavucontrol icon.png%" Exec exec pavucontrol
 + "VS Code%/home/tim/Pictures/icons/vscode.png%" Exec exec code
 + "Nautilus%/home/tim/Pictures/icons/mc icon.png%" Exec exec nautilus
-+ "Dwarf Fortress%/home/tim/Pictures/icons/df icon.png%" Exec exec urxvt256c -geometry 110x35 -e bash -c `export LD_PRELOAD=/usr/lib/libz.so.1 && /home/tim/bin/df_linux/df`
++ "Dwarf Fortress%/home/tim/Pictures/icons/df icon.png%" Exec exec dorf
+#urxvt256c -geometry 110x35 -e bash -c `export LD_PRELOAD=/usr/lib/libz.so.1 && /home/tim/bin/df_linux/df`
 + "Chrome%/home/tim/Pictures/icons/chrome icon.png%" Exec exec google-chrome-unstable
-+ "0 AD%/home/tim/Pictures/icons/0ad icon.png%" Exec exec 0ad
+#+ "0 AD%/home/tim/Pictures/icons/0ad icon.png%" Exec exec 0ad
 + "XChat%/home/tim/Pictures/icons/xchat icon.png%" Exec exec xchat
-+ "Steam%/home/tim/Pictures/icons/steam icon.png%" Exec exec steam
-+ "Google Music%/home/tim/Pictures/icons/google music icon.png%" Exec exec google-chrome-unstable --app=http://www.google.com/music
++ "Steam%/usr/share/icons/hicolor/16x16/apps/steam.png%" Exec exec steam
++ "Spotify%/usr/share/icons/hicolor/16x16/apps/spotify-client.png%" Exec exec spotify
 + "VLC%/home/tim/Pictures/icons/vlc icon.png%" Exec exec vlc
-+ "Evolution%/home/tim/Pictures/icons/evolution icon.png%" Exec exec evolution
++ "Geary%/usr/share/icons/hicolor/16x16/apps/geary.png%" Exec exec geary
 + "" Nop
 + "Restart Fvwm%/home/tim/Pictures/icons/restart icon.png%" Restart
 + "Identify%/home/tim/Pictures/icons/magnify.png%"  Module FvwmIdent
