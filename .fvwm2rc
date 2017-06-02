@@ -12,6 +12,12 @@ SetEnv fvwm_tmp /tmp
 SetEnv fvwm_home /usr/tim/.fvwm
 
 ###########
+#Keep hangouts and Xchat from stealing focus
+###########
+DestroyFunc EWMHActivateWindowFunc
+DestroyFunc UrgencyFunc
+
+###########
 #Startup Functions
 ###########
 DestroyFunc InitFunction
@@ -129,7 +135,14 @@ Style "fbpanel" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, CirculateSk
 Style "stalonetray" NoTitle, !Handles, !Borders, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom, FixedPosition, FixedSize, !Iconifiable
 Style "conky" !Handles, Sticky, WindowListSkip, CirculateSkip, StaysOnBottom
 Style "Steam" NoIcon,NoTitle,!Borders
+##########
+#Chrome has its own titlebar
+##########
 Style "Google-chrome-unstable" NoIcon,NoTitle,!Borders
+#########
+#Need to turn the stuff back on for hangouts windows
+########
+Style "crx_nckgahadagoaajjgafhacjanaoiihapd" Icon,Title,Borders
 Style "nautilus" NoIcon,NoTitle,!Borders
 Style "urxvt256c" Icon Nop, MiniIcon "/home/tim/Pictures/icons/urxvt icon.png"
 
