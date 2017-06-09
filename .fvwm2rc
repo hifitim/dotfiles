@@ -28,7 +28,7 @@ AddToFunc InitFunction
 + I Exec exec compton -Gf -O 200 -I 200 -D 20 --backend glx --paint-on-overlay --glx-no-stencil --vsync opengl-swc
 + I Exec exec feh --bg-scale /home/tim/Pictures/min2.jpg
 + I Exec exec nm-applet
-+ I Exec exec mate-power-manager
++ I Exec exec xfce4-power-manager
 + I Exec exec pasystray
 + I Exec exec xscreensaver -nosplash &
 
@@ -142,7 +142,7 @@ Style "Google-chrome-unstable" NoIcon,NoTitle,!Borders
 #########
 #Need to turn the stuff back on for hangouts windows
 ########
-Style "crx_nckgahadagoaajjgafhacjanaoiihapd" Icon,Title,Borders
+Style "crx_nckgahadagoaajjgafhacjanaoiihapd" Title, Borders, Icon Nop, MiniIcon "/usr/share/icons/Mint-Y/apps/16/web-google-hangouts.png"
 Style "nautilus" NoIcon,NoTitle,!Borders
 Style "urxvt256c" Icon Nop, MiniIcon "/home/tim/Pictures/icons/urxvt icon.png"
 
@@ -288,7 +288,7 @@ MenuStyle * TrianglesSolid, ItemFormat "%.2|%.5i%.5l%.5i%2.3>%2|"
 
 DestroyMenu "Mainmenu"
 AddToMenu "MainMenu" "Main Menu" Title
-+ "Sublime Text%/home/tim/Pictures/icons/sublime-text.png%" Exec exec subl
++ "Sublime Text%/usr/share/icons/hicolor/16x16/apps/sublime-text.png%" Exec exec subl
 + "Emacs%/usr/share/icons/hicolor/16x16/apps/emacs.png%" Exec exec emacs
 + "Audio Control%/home/tim/Pictures/icons/pavucontrol icon.png%" Exec exec pavucontrol
 + "VS Code%/home/tim/Pictures/icons/vscode.png%" Exec exec code
